@@ -3,7 +3,7 @@ import os
 import redis
 
 bot = telebot.TeleBot(os.environ['BOT_TOKEN'])
-db = redis.Redis(host='localhost', port=6379)
+db = redis.Redis(host=os.environ['DB_HOST'], port=int(os.environ['DB_PORT']))
 
 
 @bot.message_handler(content_types=["text"], regexp='matches')
