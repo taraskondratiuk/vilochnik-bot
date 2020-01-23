@@ -6,8 +6,7 @@ services:
     environment:
       - DB_HOST=redis
       - DB_PORT=6379
-    env_file:
-      - token.env
+      - BOT_TOKEN=$BOT_TOKEN
   redis:
     container_name: redis
     image: redis:5.0.7-alpine
