@@ -1,10 +1,7 @@
-FROM python:3
+FROM python:3.8.1-alpine3.11
 
 ADD /src/. /
 
-
-RUN pip install --upgrade pip
-RUN pip install redis
-RUN pip install pytelegrambotapi
+RUN pip3 install redis pytelegrambotapi
 
 CMD ["python", "./bot/bot.py"]
