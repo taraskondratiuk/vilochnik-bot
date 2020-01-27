@@ -17,18 +17,18 @@ class Offer:
 
     def __str__(self):
         return (
-                self.team1 + '\n' +
+                '**' + self.team1 + '**' + '\n' +
                 'vs\n' +
-                self.team2 + '\n' +
+                '**' + self.team2 + '**' + '\n' +
                 self.tournament + '\n' +
                 self.match_time + '\n' +
                 self.coef1 + '\n' +
                 self.coef2 + '\n' +
                 '[' + self.team1 + ' bet link' + ']' + '(' + self.link1 + ')' + '\n' +
                 '[' + self.team2 + ' bet link' + ']' + '(' + self.link2 + ')' + '\n' +
-                self.team1 + ' bet amount ' + self.bet_amount1 + '\n' +
-                self.team2 + ' bet amount ' + self.bet_amount2 + '\n' +
-                'profit: ' + self.profit
+                self.team1 + ' bet amount :  ' + self.bet_amount1 + '\n' +
+                self.team2 + ' bet amount :  ' + self.bet_amount2 + '\n' +
+                'profit :  ' + '**' + self.profit + '**'
         )
 
 
