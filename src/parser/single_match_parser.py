@@ -1,6 +1,7 @@
+import datetime
+
 import requests
 from bs4 import BeautifulSoup as Bs
-import datetime
 
 from .offer import Offer, add_offer_info_to_container
 
@@ -10,7 +11,7 @@ def parse(url, offers_container):
     page = requests.get(url)
     html = Bs(page.content, 'html.parser')
 
-    match_time = datetime.datetime.strptime(html.find('div', class_='time').text,'%H:%M')
+    match_time = datetime.datetime.strptime(html.find('div', class_='time').text, '%H:%M')
     tournament = html.find('div', class_='event text-ellipsis').find('a').text
 
     coef_container = html.find('table', class_='table')
