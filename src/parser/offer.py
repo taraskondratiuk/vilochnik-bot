@@ -28,7 +28,7 @@ class Offer:
                 '[' + self.team2 + ' bet link' + ']' + '(' + self.link2 + ')' + '\n' +
                 self.team1 + ' bet amount :  ' + self.bet_amount1 + '\n' +
                 self.team2 + ' bet amount :  ' + self.bet_amount2 + '\n' +
-                'profit :  ' + '**' + self.profit + '**'
+                'Profit :  ' + '**' + self.profit + '**'
         )
 
 
