@@ -18,6 +18,8 @@ def parse(url, offers_container):
 
     if coef_container:
         teams = coef_container.find_all('td', class_='team-cell')
+        if not teams:
+            return
         team1 = teams[0].text
         team2 = teams[2].text
 

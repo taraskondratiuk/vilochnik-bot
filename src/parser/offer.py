@@ -20,14 +20,38 @@ class Offer:
                 '**' + self.team1 + '**' + '\n' +
                 'vs\n' +
                 '**' + self.team2 + '**' + '\n' +
-                self.tournament + '\n' +
+                self.tournament
+                .replace("_", "\\_")
+                .replace("*", "\\*")
+                .replace("[", "\\[")
+                .replace("`", "\\`") + '\n' +
                 self.match_time + '\n' +
                 self.coef1 + '\n' +
                 self.coef2 + '\n' +
-                '[' + self.team1 + ' bet link' + ']' + '(' + self.link1 + ')' + '\n' +
-                '[' + self.team2 + ' bet link' + ']' + '(' + self.link2 + ')' + '\n' +
-                self.team1 + ' bet amount :  ' + self.bet_amount1 + '\n' +
-                self.team2 + ' bet amount :  ' + self.bet_amount2 + '\n' +
+                '[' + self.team1
+                .replace("_", "\\_")
+                .replace("*", "\\*")
+                .replace("[", "\\[")
+                .replace("`", "\\`")
+                + ' bet link' + ']' + '(' + self.link1 + ')' + '\n' +
+                '[' + self.team2
+                .replace("_", "\\_")
+                .replace("*", "\\*")
+                .replace("[", "\\[")
+                .replace("`", "\\`")
+                + ' bet link' + ']' + '(' + self.link2 + ')' + '\n' +
+                self.team1
+                .replace("_", "\\_")
+                .replace("*", "\\*")
+                .replace("[", "\\[")
+                .replace("`", "\\`")
+                + ' bet amount :  ' + self.bet_amount1 + '\n' +
+                self.team2
+                .replace("_", "\\_")
+                .replace("*", "\\*")
+                .replace("[", "\\[")
+                .replace("`", "\\`")
+                + ' bet amount :  ' + self.bet_amount2 + '\n' +
                 'Profit :  ' + '**' + self.profit + '**'
         )
 

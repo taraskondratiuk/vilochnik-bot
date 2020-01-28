@@ -6,7 +6,8 @@ import redis
 import schedule
 import telebot
 
-from ..parser.matches_page_parser import get_matches_info
+from src.bot.keyboard import generate_keyboard
+from src.parser.matches_page_parser import get_matches_info
 
 bot = telebot.TeleBot(os.environ['BOT_TOKEN'])
 db = redis.Redis(host=os.environ['DB_HOST'], port=int(os.environ['DB_PORT']))
@@ -22,11 +23,23 @@ def get_todays_matches_info(message):
 @bot.message_handler(content_types=['text'], regexp='subscribe')
 def subscribe_for_notifications(message):
     db.sadd('ids', message.chat.id)
+    keyboard = generate_keyboard('matches', 'unsubscribe')
+    bot.send_message(message.chat.id, 'You subscribed to notifications!', reply_markup=keyboard)
 
 
 @bot.message_handler(content_types=['text'], regexp='unsubscribe')
 def unsubscribe_from_notifications(message):
     db.srem('ids', message.chat.id)
+    keyboard = generate_keyboard('matches', 'subscribe')
+    bot.send_message(message.chat.id, 'You unsubscribed from notifications!', reply_markup=keyboard)
+
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    keyboard = generate_keyboard('matches', 'subscribe')
+    bot.send_message(message.chat.id,
+                     'Get today\'s matches info or subscribe to daily notifications',
+                     reply_markup=keyboard)
 
 
 def send_matches_info_to_subscribers():
@@ -44,11 +57,11 @@ def __send_matches_info(chat_id, matches):
         bot.send_message(chat_id, 'No matches for today!')
 
 
-def run_bot():
+def run_polling():
     bot.infinity_polling()
 
 
-def run_scheduler():
+def run_notifications_scheduler():
     schedule.every().day.at(notification_time).do(send_matches_info_to_subscribers)
 
     while True:
@@ -57,7 +70,7 @@ def run_scheduler():
 
 
 if __name__ == '__main__':
-    t1 = threading.Thread(target=run_bot)
-    t2 = threading.Thread(target=run_scheduler)
+    t1 = threading.Thread(target=run_polling)
+    t2 = threading.Thread(target=run_notifications_scheduler)
     t1.start()
     t2.start()
