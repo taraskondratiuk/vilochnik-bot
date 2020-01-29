@@ -19,13 +19,13 @@ class Offer:
         return (
                 '**' + self.team1 + '**' + '\n' +
                 'vs\n' +
-                '**' + self.team2 + '**' + '\n' +
+                '**' + self.team2 + '**' + '\n\n' +
                 self.tournament
                 .replace("_", "\\_")
                 .replace("*", "\\*")
                 .replace("[", "\\[")
                 .replace("`", "\\`") + '\n' +
-                self.match_time + '\n' +
+                self.match_time + '\n\n' +
                 self.coef1 + '\n' +
                 self.coef2 + '\n' +
                 '[' + self.team1
@@ -51,7 +51,7 @@ class Offer:
                 .replace("*", "\\*")
                 .replace("[", "\\[")
                 .replace("`", "\\`")
-                + ' bet amount :  ' + self.bet_amount2 + '\n' +
+                + ' bet amount :  ' + self.bet_amount2 + '\n\n' +
                 'Profit :  ' + '**' + self.profit + '**'
         )
 
@@ -73,7 +73,7 @@ def add_offer_info_to_container(team1, team2, tournament, match_time, offers_lis
 
     offers_container.append(
         Offer(best_offer.link1, best_offer.link2, str(best_offer.coef1), str(best_offer.coef2),
-              team1, team2, tournament, match_time.strftime('%H:%M'),
+              team1, team2, tournament, match_time.strftime('%Y-%m-%d - %A %H:%M'),
               str(bet_amount[0]) + '%', str(bet_amount[1]) + '%',
               str(profit) + '%'))
 

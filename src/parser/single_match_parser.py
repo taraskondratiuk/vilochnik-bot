@@ -12,11 +12,8 @@ def parse(url, offers_container, hours_offset):
     html = Bs(page.content, 'html.parser')
 
     unix_time = html.find('div', class_='time')['data-unix']
-    match_time = datetime.datetime.strptime(html.find('div', class_='time').text, '%H:%M')
-    print(type(hours_offset))
-    match_date_time = datetime.datetime.fromtimestamp(int(unix_time) / 1000) \
-                      + datetime.timedelta(hours=hours_offset)
-    timezone = datetime.datetime.now().astimezone().tzinfo
+    match_date_time = datetime.datetime.fromtimestamp(int(unix_time) / 1000) + datetime.timedelta(hours=hours_offset)
+
     tournament = html.find('div', class_='event text-ellipsis').find('a').text
 
     coef_container = html.find('table', class_='table')
@@ -43,6 +40,6 @@ def parse(url, offers_container, hours_offset):
         add_offer_info_to_container(team1,
                                     team2,
                                     tournament,
-                                    match_time + datetime.timedelta(hours=1),
+                                    match_date_time,
                                     offers_list,
                                     offers_container)

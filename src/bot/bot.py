@@ -52,7 +52,7 @@ def send_matches_info_to_subscribers():
 def __send_matches_info(chat_id, matches):
     if matches:
         for m in matches:
-            bot.send_message(chat_id, m, parse_mode='markdown')
+            bot.send_message(chat_id, m, parse_mode='markdown', disable_web_page_preview=True)
     else:
         bot.send_message(chat_id, 'No matches for today!')
 
