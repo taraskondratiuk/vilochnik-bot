@@ -16,44 +16,58 @@ class Offer:
         self.profit = profit
 
     def __str__(self):
-        return (
-                '**' + self.team1 + '**' + '\n' +
-                'vs\n' +
-                '**' + self.team2 + '**' + '\n\n' +
-                self.tournament
-                .replace("_", "\\_")
-                .replace("*", "\\*")
-                .replace("[", "\\[")
-                .replace("`", "\\`") + '\n' +
-                self.match_time + '\n\n' +
-                self.coef1 + '\n' +
-                self.coef2 + '\n' +
-                '[' + self.team1
-                .replace("_", "\\_")
-                .replace("*", "\\*")
-                .replace("[", "\\[")
-                .replace("`", "\\`")
-                + ' bet link' + ']' + '(' + self.link1 + ')' + '\n' +
-                '[' + self.team2
-                .replace("_", "\\_")
-                .replace("*", "\\*")
-                .replace("[", "\\[")
-                .replace("`", "\\`")
-                + ' bet link' + ']' + '(' + self.link2 + ')' + '\n' +
-                self.team1
-                .replace("_", "\\_")
-                .replace("*", "\\*")
-                .replace("[", "\\[")
-                .replace("`", "\\`")
-                + ' bet amount :  ' + self.bet_amount1 + '\n' +
-                self.team2
-                .replace("_", "\\_")
-                .replace("*", "\\*")
-                .replace("[", "\\[")
-                .replace("`", "\\`")
-                + ' bet amount :  ' + self.bet_amount2 + '\n\n' +
-                'Profit :  ' + '**' + self.profit + '**'
-        )
+        if self.coef1 != 0.0:
+            return (
+                    '**' + self.team1 + '**' + '\n' +
+                    'vs\n' +
+                    '**' + self.team2 + '**' + '\n\n' +
+                    self.tournament
+                    .replace("_", "\\_")
+                    .replace("*", "\\*")
+                    .replace("[", "\\[")
+                    .replace("`", "\\`") + '\n' +
+                    self.match_time + '\n\n' +
+                    self.coef1 + '\n' +
+                    self.coef2 + '\n' +
+                    '[' + self.team1
+                    .replace("_", "\\_")
+                    .replace("*", "\\*")
+                    .replace("[", "\\[")
+                    .replace("`", "\\`")
+                    + ' bet link' + ']' + '(' + self.link1 + ')' + '\n' +
+                    '[' + self.team2
+                    .replace("_", "\\_")
+                    .replace("*", "\\*")
+                    .replace("[", "\\[")
+                    .replace("`", "\\`")
+                    + ' bet link' + ']' + '(' + self.link2 + ')' + '\n' +
+                    self.team1
+                    .replace("_", "\\_")
+                    .replace("*", "\\*")
+                    .replace("[", "\\[")
+                    .replace("`", "\\`")
+                    + ' bet amount :  ' + self.bet_amount1 + '\n' +
+                    self.team2
+                    .replace("_", "\\_")
+                    .replace("*", "\\*")
+                    .replace("[", "\\[")
+                    .replace("`", "\\`")
+                    + ' bet amount :  ' + self.bet_amount2 + '\n\n' +
+                    'Profit :  ' + '**' + self.profit + '**'
+            )
+        else:
+            return (
+                    '**' + self.team1 + '**' + '\n' +
+                    'vs\n' +
+                    '**' + self.team2 + '**' + '\n\n' +
+                    self.tournament
+                    .replace("_", "\\_")
+                    .replace("*", "\\*")
+                    .replace("[", "\\[")
+                    .replace("`", "\\`") + '\n' +
+                    self.match_time + '\n\n' +
+                    'No offers for this match!'
+            )
 
 
 def count_profit(coef1, coef2, bet_amount):
@@ -84,12 +98,15 @@ def get_best_offer(offers):
     best_offer_first = None
     best_offer_second = None
 
-    for o in offers:
-        if float(o.coef1) > max_first_coef:
-            max_first_coef = o.coef1
-            best_offer_first = o
-        if float(o.coef2) > max_second_coef:
-            max_second_coef = o.coef2
-            best_offer_second = o
+    if offers:
+        for o in offers:
+            if float(o.coef1) > max_first_coef:
+                max_first_coef = o.coef1
+                best_offer_first = o
+            if float(o.coef2) > max_second_coef:
+                max_second_coef = o.coef2
+                best_offer_second = o
 
-    return Offer(best_offer_first.link1, best_offer_second.link1, best_offer_first.coef1, best_offer_second.coef2)
+        return Offer(best_offer_first.link1, best_offer_second.link1, best_offer_first.coef1, best_offer_second.coef2)
+    else:
+        return Offer('', '', 0.0, 0.0)
