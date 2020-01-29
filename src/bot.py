@@ -1,14 +1,10 @@
 import os
-import sys
 import threading
 import time
 
 import redis
 import schedule
 import telebot
-
-sys.path.append('src')
-
 from keyboard import generate_keyboard
 from matches_page_parser import get_matches_info
 
