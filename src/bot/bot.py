@@ -6,8 +6,8 @@ import redis
 import schedule
 import telebot
 
-from src.bot.keyboard import generate_keyboard
-from src.parser.matches_page_parser import get_matches_info
+from ..bot.keyboard import generate_keyboard
+from ..parser.matches_page_parser import get_matches_info
 
 bot = telebot.TeleBot(os.environ['BOT_TOKEN'])
 db = redis.Redis(host=os.environ['DB_HOST'], port=int(os.environ['DB_PORT']))
