@@ -3,7 +3,7 @@ import datetime
 import requests
 from bs4 import BeautifulSoup as Bs
 
-from .offer import Offer, add_offer_info_to_container
+from offer import Offer, add_offer_info_to_container
 
 
 def parse(url, offers_container, hours_offset):

@@ -3,7 +3,7 @@ import os
 import requests
 from bs4 import BeautifulSoup as Bs
 
-from .single_match_parser import parse as parse_single_match
+from single_match_parser import parse as parse_single_match
 
 hours_offset = float(os.environ['HOURS_OFFSET'])
 
