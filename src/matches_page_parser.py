@@ -5,10 +5,8 @@ from bs4 import BeautifulSoup as Bs
 
 from single_match_parser import parse as parse_single_match
 
-hours_offset = float(os.environ['HOURS_OFFSET'])
 
-
-def get_matches_info():
+def get_matches_info(hours_offset):
     offers_container = []
     page = requests.get('https://www.hltv.org/matches')
     html = Bs(page.content, 'html.parser')

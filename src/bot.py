@@ -11,11 +11,12 @@ from matches_page_parser import get_matches_info
 bot = telebot.TeleBot(os.environ['BOT_TOKEN'])
 db = redis.Redis(host=os.environ['DB_HOST'], port=int(os.environ['DB_PORT']))
 notification_time = os.environ['NOTIFICATION_TIME']
+hours_offset = float(os.environ['HOURS_OFFSET'])
 
 
 @bot.message_handler(content_types=['text'], regexp='matches')
 def get_todays_matches_info(message):
-    matches = get_matches_info()
+    matches = get_matches_info(hours_offset)
     __send_matches_info(message.chat.id, matches)
 
 
@@ -43,7 +44,7 @@ def start(message):
 
 def send_matches_info_to_subscribers():
     subs_chat_ids = db.smembers('ids')
-    matches = get_matches_info()
+    matches = get_matches_info(hours_offset)
     for i in subs_chat_ids:
         __send_matches_info(int(i), matches)
 
