@@ -16,11 +16,21 @@ class Offer:
         self.profit = profit
 
     def __str__(self):
-        if self.coef1 != 0.0:
+        if self.coef1 != '0.0':
             return (
-                    '**' + self.team1 + '**' + '\n' +
+                    '**' + self.team1
+                    .replace("_", "\\_")
+                    .replace("*", "\\*")
+                    .replace("[", "\\[")
+                    .replace("`", "\\`")
+                    + '**' + '\n' +
                     'vs\n' +
-                    '**' + self.team2 + '**' + '\n\n' +
+                    '**' + self.team2
+                    .replace("_", "\\_")
+                    .replace("*", "\\*")
+                    .replace("[", "\\[")
+                    .replace("`", "\\`")
+                    + '**' + '\n\n' +
                     self.tournament
                     .replace("_", "\\_")
                     .replace("*", "\\*")
@@ -57,9 +67,19 @@ class Offer:
             )
         else:
             return (
-                    '**' + self.team1 + '**' + '\n' +
+                    '**' + self.team1
+                    .replace("_", "\\_")
+                    .replace("*", "\\*")
+                    .replace("[", "\\[")
+                    .replace("`", "\\`")
+                    + '**' + '\n' +
                     'vs\n' +
-                    '**' + self.team2 + '**' + '\n\n' +
+                    '**' + self.team2
+                    .replace("_", "\\_")
+                    .replace("*", "\\*")
+                    .replace("[", "\\[")
+                    .replace("`", "\\`")
+                    + '**' + '\n\n' +
                     self.tournament
                     .replace("_", "\\_")
                     .replace("*", "\\*")
@@ -75,6 +95,8 @@ def count_profit(coef1, coef2, bet_amount):
 
 
 def count_bet_amount(coef1, coef2):
+    if coef1 == 0.0:
+        return 0.0, 0.0
     bet1 = coef2 * 100 / (coef1 + coef2)
     bet2 = 100 - bet1
     return round(bet1, 2), round(bet2, 2)
