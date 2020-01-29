@@ -7,6 +7,8 @@ services:
       - DB_HOST=redis
       - DB_PORT=6379
       - BOT_TOKEN=$BOT_TOKEN
+      - NOTIFICATION_TIME=$NOTIFICATION_TIME
+      - HOURS_OFFSET=$HOURS_OFFSET
   redis:
     container_name: redis
     image: redis:5.0.7-alpine
