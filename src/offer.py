@@ -2,7 +2,7 @@ class Offer:
     def __init__(self, link1, link2, coef1, coef2,
                  team1="", team2="", tournament="",
                  match_time="", bet_amount1="",
-                 bet_amount2="", profit=""):
+                 bet_amount2="", profit="", url=""):
         self.link1 = link1
         self.link2 = link2
         self.coef1 = coef1
@@ -14,23 +14,26 @@ class Offer:
         self.bet_amount1 = bet_amount1
         self.bet_amount2 = bet_amount2
         self.profit = profit
+        self.url = url
 
     def __str__(self):
         if self.coef1 != '0.0':
             return (
-                    '**' + self.team1
+                    '[' + self.team1
                     .replace("_", "\\_")
                     .replace("*", "\\*")
                     .replace("[", "\\[")
                     .replace("`", "\\`")
-                    + '**' + '\n' +
+                    + '\n' +
                     'vs\n' +
-                    '**' + self.team2
+                    self.team2
                     .replace("_", "\\_")
                     .replace("*", "\\*")
                     .replace("[", "\\[")
                     .replace("`", "\\`")
-                    + '**' + '\n\n' +
+                    + ']' +
+                    '(' + self.url + ')' +
+                    '\n\n' +
                     self.tournament
                     .replace("_", "\\_")
                     .replace("*", "\\*")
@@ -67,19 +70,21 @@ class Offer:
             )
         else:
             return (
-                    '**' + self.team1
+                    '[' + self.team1
                     .replace("_", "\\_")
                     .replace("*", "\\*")
                     .replace("[", "\\[")
                     .replace("`", "\\`")
-                    + '**' + '\n' +
+                    + '\n' +
                     'vs\n' +
-                    '**' + self.team2
+                    self.team2
                     .replace("_", "\\_")
                     .replace("*", "\\*")
                     .replace("[", "\\[")
                     .replace("`", "\\`")
-                    + '**' + '\n\n' +
+                    + ']' +
+                    '(' + self.url + ')' +
+                    '\n\n' +
                     self.tournament
                     .replace("_", "\\_")
                     .replace("*", "\\*")
@@ -102,7 +107,7 @@ def count_bet_amount(coef1, coef2):
     return round(bet1, 2), round(bet2, 2)
 
 
-def add_offer_info_to_container(team1, team2, tournament, match_time, offers_list, offers_container):
+def add_offer_info_to_container(team1, team2, tournament, match_time, offers_list, url, offers_container):
     best_offer = get_best_offer(offers_list)
     bet_amount = count_bet_amount(best_offer.coef1, best_offer.coef2)
     profit = count_profit(best_offer.coef1, best_offer.coef2, bet_amount)
@@ -111,7 +116,7 @@ def add_offer_info_to_container(team1, team2, tournament, match_time, offers_lis
         Offer(best_offer.link1, best_offer.link2, str(best_offer.coef1), str(best_offer.coef2),
               team1, team2, tournament, match_time.strftime('%Y-%m-%d - %A %H:%M'),
               str(bet_amount[0]) + '%', str(bet_amount[1]) + '%',
-              str(profit) + '%'))
+              str(profit) + '%', url))
 
 
 def get_best_offer(offers):

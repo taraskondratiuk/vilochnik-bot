@@ -42,4 +42,5 @@ def parse(url, offers_container, hours_offset):
                                     tournament,
                                     match_date_time,
                                     offers_list,
+                                    url,
                                     offers_container)
