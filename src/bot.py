@@ -8,7 +8,7 @@ import telebot
 from keyboard import generate_keyboard
 from matches_page_parser import get_matches_info
 
-bot = telebot.TeleBot(os.environ['BOT_TOKEN'])
+bot = telebot.TeleBot(os.environ['BOT_TOKEN'], threaded=False)
 db = redis.Redis(host=os.environ['DB_HOST'], port=int(os.environ['DB_PORT']))
 notification_time = os.environ['NOTIFICATION_TIME']
 hours_offset = float(os.environ['HOURS_OFFSET'])
