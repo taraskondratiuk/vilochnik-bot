@@ -38,7 +38,7 @@ def parse(url, offers_container, hours_offset):
                     	coef2=float(offer_container_anchors[3].text)
                 	))
                 except ValueError:
-                	
+                	pass
 
         add_offer_info_to_container(team1,
                                     team2,
