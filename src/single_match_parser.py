@@ -30,12 +30,15 @@ def parse(url, offers_container, hours_offset):
         for offer in coef_container.find_all('tr', class_='provider'):
             if not (offer.find('td', class_='noOdds') or offer['class'][0] == 'hidden'):
                 offer_container_anchors = offer.find_all('a')
-                offers_list.append(Offer(
-                    link1=offer_container_anchors[1]['href'],
-                    link2=offer_container_anchors[1]['href'],
-                    coef1=float(offer_container_anchors[1].text),
-                    coef2=float(offer_container_anchors[3].text)
-                ))
+                try:
+                	offers_list.append(Offer(
+                    	link1=offer_container_anchors[1]['href'],
+                    	link2=offer_container_anchors[1]['href'],
+                    	coef1=float(offer_container_anchors[1].text),
+                    	coef2=float(offer_container_anchors[3].text)
+                	))
+                except ValueError:
+                	
 
         add_offer_info_to_container(team1,
                                     team2,
