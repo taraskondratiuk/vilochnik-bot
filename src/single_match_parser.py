@@ -1,16 +1,16 @@
 import datetime
+from time import sleep
 
 import requests
 from bs4 import BeautifulSoup as Bs
-
 from offer import Offer, add_offer_info_to_container
 
 
 def parse(url, offers_container, hours_offset):
     url = 'https://www.hltv.org' + url
     page = requests.get(url)
+    sleep(1)
     html = Bs(page.content, 'html.parser')
-
     unix_time = html.find('div', class_='time')['data-unix']
     match_date_time = datetime.datetime.fromtimestamp(int(unix_time) / 1000) + datetime.timedelta(hours=hours_offset)
 
@@ -31,14 +31,14 @@ def parse(url, offers_container, hours_offset):
             if not (offer.find('td', class_='noOdds') or offer['class'][0] == 'hidden'):
                 offer_container_anchors = offer.find_all('a')
                 try:
-                	offers_list.append(Offer(
-                    	link1=offer_container_anchors[1]['href'],
-                    	link2=offer_container_anchors[1]['href'],
-                    	coef1=float(offer_container_anchors[1].text),
-                    	coef2=float(offer_container_anchors[3].text)
-                	))
+                    offers_list.append(Offer(
+                        link1=offer_container_anchors[1]['href'],
+                        link2=offer_container_anchors[1]['href'],
+                        coef1=float(offer_container_anchors[1].text),
+                        coef2=float(offer_container_anchors[3].text)
+                    ))
                 except ValueError:
-                	pass
+                    pass
 
         add_offer_info_to_container(team1,
                                     team2,
