@@ -1,9 +1,6 @@
 import os
-import threading
-import time
 
 import redis
-import schedule
 import telebot
 from keyboard import generate_keyboard
 from matches_page_parser import get_matches_info
@@ -42,13 +39,6 @@ def start(message):
                      reply_markup=keyboard)
 
 
-def send_matches_info_to_subscribers():
-    subs_chat_ids = db.smembers('ids')
-    matches = get_matches_info(hours_offset)
-    for i in subs_chat_ids:
-        __send_matches_info(int(i), matches)
-
-
 def __send_matches_info(chat_id, matches):
     if matches:
         for m in matches:
@@ -57,20 +47,5 @@ def __send_matches_info(chat_id, matches):
         bot.send_message(chat_id, 'No matches for today!')
 
 
-def run_polling():
-    bot.infinity_polling()
-
-
-def run_notifications_scheduler():
-    schedule.every().day.at(notification_time).do(send_matches_info_to_subscribers)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(30)
-
-
 if __name__ == '__main__':
-    t1 = threading.Thread(target=run_polling)
-    t2 = threading.Thread(target=run_notifications_scheduler)
-    t1.start()
-    t2.start()
+    bot.infinity_polling()
